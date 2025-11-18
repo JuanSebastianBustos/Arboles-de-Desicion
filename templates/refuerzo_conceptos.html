@@ -6,48 +6,28 @@
 <div class="container mt-5 mb-5">
     
     <header class="text-center mb-5">
-        <h1 class="display-4">Fundamentos de RL</h1>
-        <p class="lead text-muted">Definiciones, Componentes y Ciclo de Aprendizaje</p>
+        <h1 class="display-4">Aprendizaje por Refuerzo</h1>
+        <p class="lead text-muted">Teoría completa, Algoritmos y Buenas Prácticas</p>
     </header>
 
     <div class="card shadow-sm mb-5">
         <div class="card-header bg-primary text-white">
-            <h2 class="h4 mb-0">1. Definición General y Diferencias</h2>
+            <h2 class="h4 mb-0">1. Definición General</h2>
         </div>
         <div class="card-body">
             <p>
-                El aprendizaje por refuerzo es una disciplina distinta dentro del aprendizaje automático. 
-                A diferencia de otros paradigmas, aquí no hay un supervisor que indique "esta acción es la correcta". 
-                El agente debe aprender a tomar decisiones para maximizar una señal (la recompensa).
+                El aprendizaje por refuerzo es una disciplina distinta donde no hay un supervisor que indique la acción correcta; 
+                el agente recibe una señal (recompensa) después de actuar. Las consecuencias de las acciones 
+                pueden ser retrasadas en el tiempo.
             </p>
-            
-            <div class="alert alert-info mt-3">
-                <i class="fas fa-clock me-2"></i><strong>Nota Importante:</strong> 
-                Las consecuencias de las acciones pueden ser retrasadas en el tiempo; una acción puede tener un resultado mucho después de ser tomada.
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <div class="card h-100 border-secondary">
-                        <div class="card-body">
-                            <h5 class="card-title">Vs. Aprendizaje Supervisado</h5>
-                            <p class="card-text">
-                                No existe un "profesor" o etiquetas que indiquen la respuesta correcta. 
-                                El agente aprende solo a través de la interacción y el error.
-                            </p>
-                        </div>
-                    </div>
+            <div class="row mt-3">
+                <div class="col-md-6 border-end">
+                    <h6>Vs. Supervisado</h6>
+                    <small>No hay un "profesor". El feedback es una recompensa, no una etiqueta correcta.</small>
                 </div>
                 <div class="col-md-6">
-                    <div class="card h-100 border-secondary">
-                        <div class="card-body">
-                            <h5 class="card-title">Vs. Aprendizaje No Supervisado</h5>
-                            <p class="card-text">
-                                No se limita a buscar patrones ocultos en los datos; el objetivo central es tomar decisiones activas para maximizar 
-                                una recompensa acumulada.
-                            </p>
-                        </div>
-                    </div>
+                    <h6>Vs. No Supervisado</h6>
+                    <small>Se busca maximizar una señal de recompensa, no solo encontrar patrones ocultos en datos.</small>
                 </div>
             </div>
         </div>
@@ -55,77 +35,147 @@
 
     <div class="card shadow-sm mb-5">
         <div class="card-header bg-success text-white">
-            <h2 class="h4 mb-0">2. Componentes del Modelo RL</h2>
+            <h2 class="h4 mb-0">2. Componentes y Ciclo de Aprendizaje</h2>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <strong>Agente:</strong> Entidad (robot, software) que implementa una política y decide acciones según el estado.
-                        </li>
-                        <li class="list-group-item">
-                            <strong>Entorno:</strong> El "mundo" (físico o simulado) donde opera el agente y que responde a sus acciones.
-                        </li>
-                        <li class="list-group-item">
-                            <strong>Estados (S):</strong> Toda la información necesaria para tomar una decisión (ej. una imagen de pantalla en Atari).
-                        </li>
+            <div class="row mb-4">
+                <div class="col-lg-6">
+                    <h5 class="text-success">Elementos del Modelo</h5>
+                    <ul class="list-unstyled">
+                        <li><strong>Agente:</strong> Implementa la política y toma decisiones.</li>
+                        <li><strong>Entorno:</strong> Mundo físico o simulado donde opera el agente.</li>
+                        <li><strong>Estados (S):</strong> Información necesaria para decidir.</li>
+                        <li><strong>Acciones (A):</strong> Decisiones discretas o continuas.</li>
+                        <li><strong>Recompensas (R):</strong> Señal clave. Si se diseña mal, el agente puede aprender conductas indeseadas.</li>
                     </ul>
                 </div>
-                <div class="col-md-6">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <strong>Acciones (A):</strong> Decisiones posibles. Pueden ser discretas (número limitado) o continuas (valores reales).
-                        </li>
-                        <li class="list-group-item">
-                            <strong>Recompensas (R):</strong> Señal numérica de feedback. Un mal diseño aquí puede provocar comportamientos indeseados.
-                        </li>
-                        <li class="list-group-item">
-                            <strong>Política (π):</strong> Función determinista o probabilística que asigna una acción a cada estado.
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="mt-4 p-4 bg-light rounded border border-success">
-                <h5 class="text-success">Funciones de Valor</h5>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><strong>V(s):</strong> Valor esperado del estado. Mide "qué tan bueno es estar en el estado s" bajo cierta política.</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Q(s,a):</strong> Valor esperado de tomar la acción a en el estado s, y luego seguir la política.</p>
-                    </div>
+                <div class="col-lg-6">
+                    <h5 class="text-success">Principios del Ciclo</h5>
+                    <p class="small">
+                        <strong>Exploración vs Explotación:</strong> El agente usa estrategias como ε-greedy 
+                        para equilibrar descubrir nuevas acciones (explorar) y usar las mejores conocidas (explotar).
+                    </p>
+                    <p class="small">
+                        <strong>Descuento Temporal (γ):</strong> Regula la visión a futuro. Un γ cercano a 1 prioriza 
+                        el largo plazo, mientras que uno bajo prioriza lo inmediato.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="card shadow-sm mb-5">
-        <div class="card-header bg-warning text-dark">
-            <h2 class="h4 mb-0">3. Principios del Ciclo de Aprendizaje</h2>
+        <div class="card-header bg-info text-white">
+            <h2 class="h4 mb-0">3. Algoritmos Principales</h2>
         </div>
         <div class="card-body">
-            <h5 class="text-primary">Exploración vs. Explotación</h5>
-            <p>
-                El dilema fundamental: el agente debe <strong>explorar</strong> para descubrir acciones nuevas (potencialmente mejores), 
-                pero debe <strong>explotar</strong> lo aprendido para asegurar recompensas.
-            </p>
-            <ul>
-                <li><strong>Estrategia ε-greedy:</strong> Con probabilidad ε (epsilon) se explora al azar; con probabilidad 1-ε se elige la mejor acción conocida.</li>
+            <ul class="nav nav-tabs" id="algoTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="qlearning-tab" data-bs-toggle="tab" data-bs-target="#qlearning" type="button" role="tab">Q-Learning</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="sarsa-tab" data-bs-toggle="tab" data-bs-target="#sarsa" type="button" role="tab">SARSA</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="dqn-tab" data-bs-toggle="tab" data-bs-target="#dqn" type="button" role="tab">Deep Q-Network</button>
+                </li>
             </ul>
-            
-            <hr>
-            
-            <h5 class="text-primary">Retorno Acumulado y Descuento Temporal</h5>
-            <p>
-                El objetivo es maximizar el <strong>retorno total esperado</strong> (suma de recompensas futuras).
-                El factor de descuento <strong>γ (gamma)</strong> regula la importancia del futuro:
-            </p>
-            <ul class="mb-0">
-                <li>Si <strong>γ ≈ 1</strong>: El agente valora mucho las recompensas a largo plazo (planeación).</li>
-                <li>Si <strong>γ es bajo</strong> (ej. 0.1): Se enfoca en recompensas inmediatas.</li>
-            </ul>
+            <div class="tab-content p-4 border border-top-0 rounded-bottom" id="algoTabContent">
+                
+                <div class="tab-pane fade show active" id="qlearning" role="tabpanel">
+                    <h5>Q-Learning (Off-Policy)</h5>
+                    <p>Es un algoritmo <strong>off-policy</strong>: aprende la mejor política posible independientemente de la política que está usando para explorar.</p>
+                    
+                    <div class="alert alert-light text-dark text-center border shadow-sm">
+                        <p class="mb-0 font-monospace fw-bold">
+                            $$ Q(s,a) \leftarrow Q(s,a) + \alpha(r + \gamma \max_{a'} Q(s',a') - Q(s,a)) $$
+                        </p>
+                    </div>
+                    
+                    <small class="text-muted">Muy usado en entornos discretos.</small>
+                </div>
+
+                <div class="tab-pane fade" id="sarsa" role="tabpanel">
+                    <h5>SARSA (On-Policy)</h5>
+                    <p>Es <strong>on-policy</strong>: actualiza los valores usando la acción que realmente selecciona su política actual.</p>
+                    <p>Es más "conservador" y seguro, ya que considera la exploración dentro del aprendizaje.</p>
+                    
+                    <div class="alert alert-light text-dark text-center border shadow-sm">
+                        <p class="mb-0 font-monospace fw-bold">
+                            $$ Q(s_t,a_t) \leftarrow Q(s_t,a_t) + \alpha(r_{t+1} + \gamma Q(s_{t+1},a_{t+1}) - Q(s_t,a_t)) $$
+                        </p>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="dqn" role="tabpanel">
+                    <h5>Deep Q-Network (DQN)</h5>
+                    <p>
+                        Cuando el espacio de estados es muy grande (ej. imágenes), no se pueden usar tablas. DQN usa <strong>redes neuronales profundas</strong> para aproximar Q(s,a).
+                    </p>
+                    <div class="mt-3">
+                        <h6>Innovaciones Clave:</h6>
+                        <ul>
+                            <li><strong>Experience Replay:</strong> Almacena experiencias en memoria para entrenar en "lotes" aleatorios, rompiendo correlaciones.</li>
+                            <li><strong>Target Network:</strong> Una red separada para calcular el valor objetivo, mejorando la estabilidad.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-5 border-warning">
+        <div class="card-header bg-warning text-dark">
+             <h3 class="h5 mb-0"><i class="fas fa-check-circle me-2"></i>Buenas Prácticas en RL</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 class="text-primary">Estabilidad y Convergencia</h6>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item">
+                            <strong>Experience Replay:</strong> Vital en DQN para romper la correlación entre datos consecutivos.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Tasa de aprendizaje (α):</strong> Ajustarla cuidadosamente. Si es muy alta no converge; si es muy baja es demasiado lento.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Factor de descuento (γ):</strong> Elegirlo según si el problema requiere visión a largo o corto plazo.
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="text-primary">Exploración y Recompensas</h6>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item">
+                            <strong>Decay de ε:</strong> Comenzar con alta exploración y reducirla gradualmente para evitar quedar en óptimos locales.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Diseño de Recompensas:</strong> Evitar recompensas "engañosas" (ej. premiar velocidad si causa choques).
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Generalización:</strong> Usar regularización o aleatorizar el entorno para evitar la memorización.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionReferences">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                    <strong>Referencias Bibliográficas (APA 7)</strong>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <p class="small mb-1">Sutton, R. S., & Barto, A. G. (2018). <i>Reinforcement learning: An introduction</i> (2nd ed.). MIT Press.</p>
+                    <p class="small mb-1">Mnih, V., et al. (2015). Human-level control through deep reinforcement learning. <i>Nature, 518</i>(7540), 529-533.</p>
+                    <p class="small mb-0">Arulkumaran, K., et al. (2017). Deep reinforcement learning: A brief survey. <i>IEEE Signal Processing Magazine</i>.</p>
+                </div>
+            </div>
         </div>
     </div>
 
