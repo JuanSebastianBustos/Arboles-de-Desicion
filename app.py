@@ -382,6 +382,9 @@ def dt_practico():
         flash(f'Ocurrió un error inesperado: {e}', 'error')
         return redirect(url_for('dt_conceptos'))
 
+@app.route('/refuerzo_conceptos')
+def refuerzo_conceptos():
+    return render_template('refuerzo_conceptos.html')
 
 
 # API endpoints para AJAX (opcional)
