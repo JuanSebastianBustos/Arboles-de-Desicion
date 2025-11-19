@@ -7,53 +7,27 @@
     
     <header class="text-center mb-5">
         <h1 class="display-4">Aprendizaje por Refuerzo</h1>
-        <p class="lead text-muted">Fundamentos del Reinforcement Learning y Deep Q-Learning</p>
+        <p class="lead text-muted">Teoría completa, Algoritmos y Buenas Prácticas</p>
     </header>
 
     <div class="card shadow-sm mb-5">
         <div class="card-header bg-primary text-white">
-            <h2 class="h4 mb-0">¿Qué es el Aprendizaje por Refuerzo?</h2>
+            <h2 class="h4 mb-0">1. Definición General</h2>
         </div>
         <div class="card-body">
             <p>
-                El <strong>Aprendizaje por Refuerzo (Reinforcement Learning)</strong> es un paradigma de Machine Learning 
-                donde un <strong>agente</strong> aprende a tomar decisiones mediante interacción con un 
-                <strong>entorno</strong>. A diferencia del aprendizaje supervisado, no se proporcionan ejemplos 
-                etiquetados; en cambio, el agente recibe <strong>recompensas</strong> o <strong>penalizaciones</strong> 
-                basadas en las acciones que toma.
+                El aprendizaje por refuerzo es una disciplina distinta donde no hay un supervisor que indique la acción correcta; 
+                el agente recibe una señal (recompensa) después de actuar. Las consecuencias de las acciones 
+                pueden ser retrasadas en el tiempo.
             </p>
-            
-            <p>
-                El objetivo del agente es maximizar la <strong>recompensa acumulada</strong> a lo largo del tiempo, 
-                aprendiendo una <strong>política óptima</strong> que le indique qué acción tomar en cada estado.
-            </p>
-
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <div class="bg-light p-3 rounded">
-                        <h5 class="text-primary"><i class="fas fa-robot me-2"></i>Componentes Principales</h5>
-                        <ul class="list-unstyled mt-3">
-                            <li><strong>Agente:</strong> El sistema que toma decisiones</li>
-                            <li><strong>Entorno:</strong> El mundo con el que interactúa el agente</li>
-                            <li><strong>Estado (s):</strong> Situación actual del entorno</li>
-                            <li><strong>Acción (a):</strong> Decisión tomada por el agente</li>
-                            <li><strong>Recompensa (r):</strong> Feedback del entorno</li>
-                            <li><strong>Política (π):</strong> Estrategia del agente</li>
-                        </ul>
-                    </div>
+            <div class="row mt-3">
+                <div class="col-md-6 border-end">
+                    <h6>Vs. Supervisado</h6>
+                    <small>No hay un "profesor". El feedback es una recompensa, no una etiqueta correcta.</small>
                 </div>
                 <div class="col-md-6">
-                    <div class="bg-light p-3 rounded">
-                        <h5 class="text-success"><i class="fas fa-chart-line me-2"></i>Aplicaciones Reales</h5>
-                        <ul class="list-unstyled mt-3">
-                            <li><i class="fas fa-gamepad me-2"></i>Videojuegos (AlphaGo, Dota 2)</li>
-                            <li><i class="fas fa-robot me-2"></i>Robótica y control autónomo</li>
-                            <li><i class="fas fa-car me-2"></i>Vehículos autónomos</li>
-                            <li><i class="fas fa-coins me-2"></i>Trading financiero</li>
-                            <li><i class="fas fa-th me-2"></i>Optimización de recursos</li>
-                            <li><i class="fas fa-hospital me-2"></i>Salud personalizada</li>
-                        </ul>
-                    </div>
+                    <h6>Vs. No Supervisado</h6>
+                    <small>Se busca maximizar una señal de recompensa, no solo encontrar patrones ocultos en datos.</small>
                 </div>
             </div>
         </div>
@@ -61,129 +35,30 @@
 
     <div class="card shadow-sm mb-5">
         <div class="card-header bg-success text-white">
-            <h2 class="h4 mb-0">Q-Learning y Deep Q-Learning (DQN)</h2>
+            <h2 class="h4 mb-0">2. Componentes y Ciclo de Aprendizaje</h2>
         </div>
         <div class="card-body">
-            <h3 class="h5">Q-Learning</h3>
-            <p>
-                Q-Learning es un algoritmo de aprendizaje por refuerzo que aprende una <strong>función Q(s, a)</strong>, 
-                que estima la recompensa esperada de tomar la acción <em>a</em> en el estado <em>s</em>.
-            </p>
-            
-            <div class="bg-dark text-light p-3 rounded text-center my-3">
-                <p class="lead font-monospace">
-                    $$ Q(s, a) \leftarrow Q(s, a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right] $$
-                </p>
-            </div>
-
-            <p>Donde:</p>
-            <ul class="list-unstyled">
-                <li><strong>α (alpha):</strong> Tasa de aprendizaje (learning rate)</li>
-                <li><strong>γ (gamma):</strong> Factor de descuento (discount factor)</li>
-                <li><strong>r:</strong> Recompensa recibida</li>
-                <li><strong>s':</strong> Estado siguiente</li>
-                <li><strong>a':</strong> Acción siguiente</li>
-            </ul>
-
-            <hr class="my-4">
-
-            <h3 class="h5">Deep Q-Learning (DQN)</h3>
-            <p>
-                DQN es una extensión de Q-Learning que utiliza <strong>redes neuronales profundas</strong> 
-                para aproximar la función Q, permitiendo trabajar con espacios de estados de alta dimensionalidad.
-            </p>
-
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <div class="card border-primary">
-                        <div class="card-header bg-primary text-white">
-                            <h6 class="mb-0">Innovaciones Clave</h6>
-                        </div>
-                        <div class="card-body">
-                            <ul class="small">
-                                <li><strong>Experience Replay:</strong> Almacena experiencias en memoria y las muestrea aleatoriamente</li>
-                                <li><strong>Target Network:</strong> Red separada para estabilizar el entrenamiento</li>
-                                <li><strong>ε-greedy:</strong> Balancea exploración vs explotación</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card border-info">
-                        <div class="card-header bg-info text-white">
-                            <h6 class="mb-0">Hiperparámetros Importantes</h6>
-                        </div>
-                        <div class="card-body">
-                            <ul class="small">
-                                <li><strong>α:</strong> Tasa de aprendizaje (ej: 0.001)</li>
-                                <li><strong>γ:</strong> Factor de descuento (ej: 0.99)</li>
-                                <li><strong>ε:</strong> Tasa de exploración (ej: 1.0 → 0.01)</li>
-                                <li><strong>Batch size:</strong> Tamaño del minibatch (ej: 32)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card shadow-sm mb-5">
-        <div class="card-header bg-warning text-dark">
-            <h2 class="h4 mb-0">El Entorno CartPole</h2>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-8">
-                    <p>
-                        <strong>CartPole-v1</strong> es un entorno clásico de OpenAI Gym donde un poste está 
-                        unido a un carrito que se mueve a lo largo de una pista sin fricción.
-                    </p>
-                    
-                    <h5>Objetivo</h5>
-                    <p>
-                        Mantener el poste en posición vertical el mayor tiempo posible aplicando fuerzas 
-                        de +1 o -1 al carrito.
-                    </p>
-
-                    <h5>Espacio de Estados (4 dimensiones)</h5>
-                    <ul>
-                        <li>Posición del carrito</li>
-                        <li>Velocidad del carrito</li>
-                        <li>Ángulo del poste</li>
-                        <li>Velocidad angular del poste</li>
-                    </ul>
-
-                    <h5>Acciones (2 posibles)</h5>
-                    <ul>
-                        <li><strong>0:</strong> Empujar el carrito hacia la izquierda</li>
-                        <li><strong>1:</strong> Empujar el carrito hacia la derecha</li>
-                    </ul>
-
-                    <h5>Recompensa</h5>
-                    <p>
-                        +1 por cada paso que el poste permanece en posición vertical. 
-                        El episodio termina si:
-                    </p>
-                    <ul>
-                        <li>El poste cae más de 15° de la vertical</li>
-                        <li>El carrito se sale de los límites</li>
-                        <li>Se alcanza el límite de 500 pasos</li>
+            <div class="row mb-4">
+                <div class="col-lg-6">
+                    <h5 class="text-success">Elementos del Modelo</h5>
+                    <ul class="list-unstyled">
+                        <li><strong>Agente:</strong> Implementa la política y toma decisiones.</li>
+                        <li><strong>Entorno:</strong> Mundo físico o simulado donde opera el agente.</li>
+                        <li><strong>Estados (S):</strong> Información necesaria para decidir.</li>
+                        <li><strong>Acciones (A):</strong> Decisiones discretas o continuas.</li>
+                        <li><strong>Recompensas (R):</strong> Señal clave. Si se diseña mal, el agente puede aprender conductas indeseadas.</li>
                     </ul>
                 </div>
-                <div class="col-md-4">
-                    <div class="bg-light p-3 rounded text-center">
-                        <i class="fas fa-shopping-cart fa-4x text-primary mb-3"></i>
-                        <h6 class="text-primary">CartPole</h6>
-                        <p class="small text-muted">
-                            Entorno de control continuo ideal para aprender 
-                            los fundamentos de RL
-                        </p>
-                        <div class="mt-3">
-                            <span class="badge bg-success">Estados: 4</span>
-                            <span class="badge bg-info">Acciones: 2</span>
-                            <span class="badge bg-warning text-dark">Max: 500 pasos</span>
-                        </div>
-                    </div>
+                <div class="col-lg-6">
+                    <h5 class="text-success">Principios del Ciclo</h5>
+                    <p class="small">
+                        <strong>Exploración vs Explotación:</strong> El agente usa estrategias como ε-greedy 
+                        para equilibrar descubrir nuevas acciones (explorar) y usar las mejores conocidas (explotar).
+                    </p>
+                    <p class="small">
+                        <strong>Descuento Temporal (γ):</strong> Regula la visión a futuro. Un γ cercano a 1 prioriza 
+                        el largo plazo, mientras que uno bajo prioriza lo inmediato.
+                    </p>
                 </div>
             </div>
         </div>
@@ -191,34 +66,97 @@
 
     <div class="card shadow-sm mb-5">
         <div class="card-header bg-info text-white">
-            <h2 class="h4 mb-0">Proceso de Entrenamiento</h2>
+            <h2 class="h4 mb-0">3. Algoritmos Principales</h2>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="algoTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="qlearning-tab" data-bs-toggle="tab" data-bs-target="#qlearning" type="button" role="tab">Q-Learning</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="sarsa-tab" data-bs-toggle="tab" data-bs-target="#sarsa" type="button" role="tab">SARSA</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="dqn-tab" data-bs-toggle="tab" data-bs-target="#dqn" type="button" role="tab">Deep Q-Network</button>
+                </li>
+            </ul>
+            <div class="tab-content p-4 border border-top-0 rounded-bottom" id="algoTabContent">
+                
+                <div class="tab-pane fade show active" id="qlearning" role="tabpanel">
+                    <h5>Q-Learning (Off-Policy)</h5>
+                    <p>Es un algoritmo <strong>off-policy</strong>: aprende la mejor política posible independientemente de la política que está usando para explorar.</p>
+                    
+                    <div class="alert alert-light text-dark text-center border shadow-sm">
+                        <p class="mb-0 font-monospace fw-bold">
+                            $$ Q(s,a) \leftarrow Q(s,a) + \alpha(r + \gamma \max_{a'} Q(s',a') - Q(s,a)) $$
+                        </p>
+                    </div>
+                    
+                    <small class="text-muted">Muy usado en entornos discretos.</small>
+                </div>
+
+                <div class="tab-pane fade" id="sarsa" role="tabpanel">
+                    <h5>SARSA (On-Policy)</h5>
+                    <p>Es <strong>on-policy</strong>: actualiza los valores usando la acción que realmente selecciona su política actual.</p>
+                    <p>Es más "conservador" y seguro, ya que considera la exploración dentro del aprendizaje.</p>
+                    
+                    <div class="alert alert-light text-dark text-center border shadow-sm">
+                        <p class="mb-0 font-monospace fw-bold">
+                            $$ Q(s_t,a_t) \leftarrow Q(s_t,a_t) + \alpha(r_{t+1} + \gamma Q(s_{t+1},a_{t+1}) - Q(s_t,a_t)) $$
+                        </p>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="dqn" role="tabpanel">
+                    <h5>Deep Q-Network (DQN)</h5>
+                    <p>
+                        Cuando el espacio de estados es muy grande (ej. imágenes), no se pueden usar tablas. DQN usa <strong>redes neuronales profundas</strong> para aproximar Q(s,a).
+                    </p>
+                    <div class="mt-3">
+                        <h6>Innovaciones Clave:</h6>
+                        <ul>
+                            <li><strong>Experience Replay:</strong> Almacena experiencias en memoria para entrenar en "lotes" aleatorios, rompiendo correlaciones.</li>
+                            <li><strong>Target Network:</strong> Una red separada para calcular el valor objetivo, mejorando la estabilidad.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-5 border-warning">
+        <div class="card-header bg-warning text-dark">
+             <h3 class="h5 mb-0"><i class="fas fa-check-circle me-2"></i>Buenas Prácticas en RL</h3>
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-12">
-                    <ol class="list-group list-group-numbered">
+                <div class="col-md-6">
+                    <h6 class="text-primary">Estabilidad y Convergencia</h6>
+                    <ul class="list-group list-group-flush mb-3">
                         <li class="list-group-item">
-                            <strong>Inicialización:</strong> El agente comienza con pesos aleatorios en la red neuronal
+                            <strong>Experience Replay:</strong> Vital en DQN para romper la correlación entre datos consecutivos.
                         </li>
                         <li class="list-group-item">
-                            <strong>Exploración:</strong> Con probabilidad ε, el agente toma acciones aleatorias (exploración)
+                            <strong>Tasa de aprendizaje (α):</strong> Ajustarla cuidadosamente. Si es muy alta no converge; si es muy baja es demasiado lento.
                         </li>
                         <li class="list-group-item">
-                            <strong>Explotación:</strong> Con probabilidad 1-ε, el agente elige la mejor acción según Q(s,a)
+                            <strong>Factor de descuento (γ):</strong> Elegirlo según si el problema requiere visión a largo o corto plazo.
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="text-primary">Exploración y Recompensas</h6>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item">
+                            <strong>Decay de ε:</strong> Comenzar con alta exploración y reducirla gradualmente para evitar quedar en óptimos locales.
                         </li>
                         <li class="list-group-item">
-                            <strong>Almacenamiento:</strong> Las experiencias (s, a, r, s') se guardan en memoria
+                            <strong>Diseño de Recompensas:</strong> Evitar recompensas "engañosas" (ej. premiar velocidad si causa choques).
                         </li>
                         <li class="list-group-item">
-                            <strong>Replay:</strong> Se muestrean experiencias aleatorias para entrenar la red
+                            <strong>Generalización:</strong> Usar regularización o aleatorizar el entorno para evitar la memorización.
                         </li>
-                        <li class="list-group-item">
-                            <strong>Actualización:</strong> La red aprende a predecir mejores valores Q
-                        </li>
-                        <li class="list-group-item">
-                            <strong>Decaimiento de ε:</strong> Gradualmente se reduce la exploración
-                        </li>
-                    </ol>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -227,32 +165,24 @@
     <div class="accordion" id="accordionReferences">
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
                     <strong>Referencias Bibliográficas (APA 7)</strong>
                 </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionReferences">
+            <div id="collapseOne" class="accordion-collapse collapse">
                 <div class="accordion-body">
-                    <p><small>Sutton, R. S., & Barto, A. G. (2018). <i>Reinforcement learning: An introduction</i> (2nd ed.). MIT Press.</small></p>
-                    
-                    <p><small>Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A. A., Veness, J., Bellemare, M. G., Graves, A., Riedmiller, M., Fidjeland, A. K., Ostrovski, G., Petersen, S., Beattie, C., Sadik, A., Antonoglou, I., King, H., Kumaran, D., Wierstra, D., Legg, S., & Hassabis, D. (2015). Human-level control through deep reinforcement learning. <i>Nature, 518</i>(7540), 529-533. https://doi.org/10.1038/nature14236</small></p>
-                    
-                    <p><small>OpenAI. (2023). <i>Gymnasium Documentation</i>. https://gymnasium.farama.org/</small></p>
-                    
-                    <p><small>Arulkumaran, K., Deisenroth, M. P., Brundage, M., & Bharath, A. A. (2017). Deep reinforcement learning: A brief survey. <i>IEEE Signal Processing Magazine, 34</i>(6), 26-38. https://doi.org/10.1109/MSP.2017.2743240</small></p>
-                    
-                    <p><small>François-Lavet, V., Henderson, P., Islam, R., Bellemare, M. G., & Pineau, J. (2018). An introduction to deep reinforcement learning. <i>Foundations and Trends in Machine Learning, 11</i>(3-4), 219-354. https://doi.org/10.1561/2200000071</small></p>
+                    <p class="small mb-1">Sutton, R. S., & Barto, A. G. (2018). <i>Reinforcement learning: An introduction</i> (2nd ed.). MIT Press.</p>
+                    <p class="small mb-1">Mnih, V., et al. (2015). Human-level control through deep reinforcement learning. <i>Nature, 518</i>(7540), 529-533.</p>
+                    <p class="small mb-0">Arulkumaran, K., et al. (2017). Deep reinforcement learning: A brief survey. <i>IEEE Signal Processing Magazine</i>.</p>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="d-flex justify-content-between my-4">
-        <a href="{{ url_for('index') }}" class="btn btn-outline-primary d-flex align-items-center">
-            <i class="fas fa-home me-2"></i>
-            Volver al inicio
+        <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
+            <i class="fas fa-home me-2"></i> Volver al inicio
         </a>
-        
     </div>
 </div>
 {% endblock %}
