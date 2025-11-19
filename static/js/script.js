@@ -3,11 +3,11 @@ function showToast(message, type = 'primary') {
     const toastElement = document.getElementById('liveToast');
     const toastMessage = document.getElementById('toastMessage');
     const toast = new bootstrap.Toast(toastElement);
-    
+
     // Update message and style
     toastMessage.textContent = message;
     toastElement.className = `toast align-items-center text-bg-${type} border-0`;
-    
+
     toast.show();
 }
 
@@ -15,15 +15,15 @@ function showToast(message, type = 'primary') {
 function validateForm(formId) {
     const form = document.getElementById(formId);
     if (!form) return false;
-    
+
     const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
     let isValid = true;
-    
+
     inputs.forEach(input => {
         input.classList.remove('is-invalid');
         const feedback = input.parentNode.querySelector('.invalid-feedback');
         if (feedback) feedback.remove();
-        
+
         if (!input.value.trim()) {
             input.classList.add('is-invalid');
             const errorDiv = document.createElement('div');
@@ -33,7 +33,7 @@ function validateForm(formId) {
             isValid = false;
         }
     });
-    
+
     return isValid;
 }
 
@@ -41,7 +41,7 @@ function validateForm(formId) {
 function setLoadingState(buttonId, loading = true) {
     const button = document.getElementById(buttonId);
     if (!button) return;
-    
+
     if (loading) {
         button.disabled = true;
         const originalText = button.innerHTML;
@@ -56,19 +56,32 @@ function setLoadingState(buttonId, loading = true) {
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+        const href = this.getAttribute('href');
+
+        // Ignorar si es solo '#' o si tiene data-bs-toggle (Bootstrap components)
+        if (href === '#' || href === '' || this.hasAttribute('data-bs-toggle')) {
+            return;
+        }
+
+        // Intentar encontrar el elemento destino
+        try {
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        } catch (error) {
+            // Si el selector no es válido, no hacer nada
+            console.warn('Selector inválido para smooth scroll:', href);
         }
     });
 });
 
 // Initialize tooltips
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
